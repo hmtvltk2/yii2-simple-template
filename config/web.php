@@ -4,17 +4,21 @@ $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 
 $config = [
-    'id' => 'basic',
+    'id' => 'simple',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
-    'aliases' => [
+     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
+    ],
+    'modules' => [
+        'app' => 'app\modules\app\Module',
+        'contrib' =>  'app\modules\contrib\Module'
     ],
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-            'cookieValidationKey' => '',
+            'cookieValidationKey' => 'imTfeP1GEOoRxZvYUkNMYNFfmQXSGJil',
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -24,7 +28,8 @@ $config = [
             'enableAutoLogin' => true,
         ],
         'errorHandler' => [
-            'errorAction' => 'site/error',
+            //TODO: Change errorAction
+            'errorAction' => 'app/example/site/error',
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
@@ -43,15 +48,18 @@ $config = [
             ],
         ],
         'db' => $db,
-        /*
+     
+       
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
             ],
         ],
-        */
+   
     ],
+    //TODO: Change default route
+    'defaultRoute' => 'app/example/site',
     'params' => $params,
 ];
 
