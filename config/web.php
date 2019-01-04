@@ -7,18 +7,37 @@ $config = [
     'id' => 'simple',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
-     'aliases' => [
+    'aliases' => [
         '@bower' => '@vendor/bower-asset',
-        '@npm'   => '@vendor/npm-asset',
+        '@npm' => '@vendor/npm-asset',
     ],
     'modules' => [
         'app' => 'app\modules\app\Module',
-        'contrib' =>  'app\modules\contrib\Module'
+        'contrib' => 'app\modules\contrib\Module',
+        'gridview' => '\kartik\grid\Module'
     ],
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-            'cookieValidationKey' => 'imTfeP1GEOoRxZvYUkNMYNFfmQXSGJil',
+            'cookieValidationKey' => 'howhwhieurasfas',
+        ],
+        'assetManager' => [
+            'bundles' => [
+                'yii\bootstrap4\BootstrapAsset' => [
+                    'sourcePath' => null,
+                    'baseUrl' => 'https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1',
+                    'css' => [
+                        'css/bootstrap.min.css'
+                    ],
+                ],
+                'yii\bootstrap4\BootstrapPluginAsset' => [
+                    'sourcePath' => null,
+                    'baseUrl' => 'https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1',
+                    'js' => [
+                        'js/bootstrap.min.js'
+                    ],
+                ],
+            ],
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -31,13 +50,6 @@ $config = [
             //TODO: Change errorAction
             'errorAction' => 'app/example/site/error',
         ],
-        'mailer' => [
-            'class' => 'yii\swiftmailer\Mailer',
-            // send all mails to a file by default. You have to set
-            // 'useFileTransport' to false and configure a transport
-            // for the mailer to send real emails.
-            'useFileTransport' => true,
-        ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
@@ -48,15 +60,14 @@ $config = [
             ],
         ],
         'db' => $db,
-     
-       
+
+
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
-            'rules' => [
-            ],
+            'rules' => [],
         ],
-   
+
     ],
     //TODO: Change default route
     'defaultRoute' => 'app/example/site',
@@ -78,6 +89,10 @@ if (YII_ENV_DEV) {
         // uncomment the following to add your IP if you are not connecting from localhost.
         //'allowedIPs' => ['127.0.0.1', '::1'],
     ];
+    $config['modules']['gii']['generators'] = [
+        'kartikgii-crud' => ['class' => 'warrence\kartikgii\crud\Generator'],
+    ];
+    //$config['components']['assetManager']['forceCopy'] = true;
 }
 
 return $config;
