@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'bsVersion' => '4.x'
+    'bsVersion' => '4.x',
 ];
