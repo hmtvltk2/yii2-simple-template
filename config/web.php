@@ -1,5 +1,4 @@
 <?php
-use kartik\datecontrol\Module;
 
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
@@ -11,10 +10,12 @@ $config = [
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm' => '@vendor/npm-asset',
+        '@contrib' => '@app/contrib',
+        '@appname' => '@app/appname'
     ],
     'modules' => [
-        'app' => 'app\modules\app\Module',
-        'contrib' => 'app\modules\contrib\Module',
+        'appname' => 'appname\Module',
+        'contrib' => 'contrib\Module',
         'gridview' => '\kartik\grid\Module',
         'datecontrol' => '\kartik\datecontrol\Module',
     ],
@@ -29,9 +30,10 @@ $config = [
             'datetimeFormat' => 'dd/MM/yyyy hh:mm:ss a'
         ],
         'assetManager' => [
+            // 'linkAssets' => true,
             'bundles' => [
                 'yii\bootstrap4\BootstrapAsset' => [
-                    'sourcePath' => '@app/modules/contrib/assets/limitless',
+                    'sourcePath' => '@contrib/assets/limitless',
                     // 'baseUrl' => 'https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1',
                     'css' => [
                         'css/bootstrap.min.css'
@@ -50,12 +52,12 @@ $config = [
             'class' => 'yii\caching\FileCache',
         ],
         'user' => [
-            'identityClass' => 'app\models\User',
+            'identityClass' => 'appname\models\User',
             'enableAutoLogin' => true,
         ],
         'errorHandler' => [
             //TODO: Change errorAction
-            'errorAction' => 'app/example/site/error',
+            'errorAction' => 'appname/site/error',
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
@@ -77,7 +79,7 @@ $config = [
 
     ],
     //TODO: Change default route
-    'defaultRoute' => 'app/example/site',
+    'defaultRoute' => 'appname/site/index',
     'params' => $params,
 ];
 
@@ -95,11 +97,7 @@ if (YII_ENV_DEV) {
         'class' => 'yii\gii\Module',
         // uncomment the following to add your IP if you are not connecting from localhost.
         //'allowedIPs' => ['127.0.0.1', '::1'],
-        'generators' => [
-            'kartikgii-crud' => [
-                'class' => 'hmtvltk2\kartikgii\crud\Generator',
-            ]
-        ]
+
     ];
 
     // $config['components']['assetManager']['forceCopy'] = true;
