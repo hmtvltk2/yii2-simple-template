@@ -11,18 +11,18 @@ $config = [
         '@bower' => '@vendor/bower-asset',
         '@npm' => '@vendor/npm-asset',
         '@contrib' => '@app/contrib',
-        '@appname' => '@app/appname'
+        '@main' => '@app/main'
     ],
+    'language' => 'vi',
+    'timeZone' => 'Asia/Ho_Chi_Minh',
     'modules' => [
-        'appname' => 'appname\Module',
+        'main' => 'main\Module',
         'contrib' => 'contrib\Module',
-        'gridview' => '\kartik\grid\Module',
-        'datecontrol' => '\kartik\datecontrol\Module',
     ],
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-            'cookieValidationKey' => 'howhwhieurasfas',
+            'cookieValidationKey' => '',
         ],
         'formatter' => [
             'dateFormat' => 'dd/MM/yyyy',
@@ -31,33 +31,28 @@ $config = [
         ],
         'assetManager' => [
             // 'linkAssets' => true,
-            'bundles' => [
-                'yii\bootstrap4\BootstrapAsset' => [
-                    'sourcePath' => '@contrib/assets/limitless',
-                    // 'baseUrl' => 'https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1',
-                    'css' => [
-                        'css/bootstrap.min.css'
-                    ],
-                ],
-                // 'yii\bootstrap4\BootstrapPluginAsset' => [
-                //     'sourcePath' => null,
-                //     'baseUrl' => 'https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1',
-                //     'js' => [
-                //         'js/bootstrap.min.js'
-                //     ],
-                // ],
-            ],
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
         'user' => [
-            'identityClass' => 'appname\models\User',
+            'identityClass' => 'main\models\User',
             'enableAutoLogin' => true,
         ],
         'errorHandler' => [
-            //TODO: Change errorAction
-            'errorAction' => 'appname/site/error',
+            'errorAction' => 'main/site/error',
+        ],
+        'mailer' => [
+            'class' => 'yii\swiftmailer\Mailer',
+            // 'transport' => [
+            //     'class' => 'Swift_SmtpTransport',
+            //     'host' => 'smtp.gmail.com',
+            //     'username' => '',
+            //     'password' => '',
+            //     'port' => '587',
+            //     'encryption' => 'tls',
+            // ],
+            'useFileTransport' => false
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
@@ -65,11 +60,18 @@ $config = [
                 [
                     'class' => 'yii\log\FileTarget',
                     'levels' => ['error', 'warning'],
+                    'logVars' => ['_GET', '_POST'],
+                    'logFile' => '@runtime/logs/' . date('Y') . '/' . date('m') . '/' . date('d') . '/error.log'
+                ],
+                [
+                    'class' => 'app\modules\contrib\userlog\UserDbTarget',
+                    'levels' => ['info'],
+                    'categories' => ['userWrite', 'userRead'],
+                    'logVars' => [],
                 ],
             ],
         ],
         'db' => $db,
-
 
         'urlManager' => [
             'enablePrettyUrl' => true,
@@ -78,9 +80,21 @@ $config = [
         ],
 
     ],
-    //TODO: Change default route
-    'defaultRoute' => 'appname/site/index',
+    'defaultRoute' => 'main/site/index',
     'params' => $params,
+    'as beforeRequest' => [
+        'class' => 'yii\filters\AccessControl',
+        'rules' => [
+            [
+                'allow' => true,
+                'actions' => ['login'],
+            ],
+            [
+                'allow' => true,
+                'roles' => ['@'],
+            ],
+        ]
+    ],
 ];
 
 if (YII_ENV_DEV) {

@@ -3,12 +3,11 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model appname\models\Customer */
+/* @var $model main\models\Customer */
 
-$this->title = 'Update Customer: ' . $model->name;
+$this->title = 'Create Customer';
 $this->params['breadcrumbs'][] = ['label' => 'Customers', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="kt-portlet kt-portlet--mobile">
     <div class="kt-portlet__head kt-portlet__head--lg">

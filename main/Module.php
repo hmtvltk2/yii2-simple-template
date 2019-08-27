@@ -1,6 +1,6 @@
 <?php
 
-namespace appname;
+namespace main;
 
 class Module extends \yii\base\Module
 {

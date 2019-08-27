@@ -1,13 +1,13 @@
 <?php
 
-namespace appname\models;
+namespace main\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use appname\models\Customer;
+use main\models\Customer;
 
 /**
- * CustomerSearch represents the model behind the search form of `appname\models\Customer`.
+ * CustomerSearch represents the model behind the search form of `main\models\Customer`.
  */
 class CustomerSearch extends Customer
 {

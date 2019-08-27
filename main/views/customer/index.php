@@ -6,7 +6,7 @@ use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 use contrib\widgets\DateRangeWidget;
 /* @var $this yii\web\View */
-/* @var $searchModel appname\models\CustomerSearch */
+/* @var $searchModel main\models\CustomerSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Customers';
